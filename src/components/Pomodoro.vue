@@ -14,7 +14,8 @@
             class="pa-5 d-flex flex-column justify-center align-center"
             flat
           >
-            <h1 class="time">00:00</h1>
+            <h1 class="time">
+              {{ display.minutes }}:{{ display.seconds }}</h1>
 
             <div class="button-group">
               <v-btn color="primary">
@@ -42,10 +43,27 @@
   export default {
     data() {
       return {
+          display: {
+            minutes: '00',
+            seconds: '00',
+          },
+          totalSeconds: 25 * 60,
           timerType: 0,
           tabTitles: ['Pomodoro', 'Short Break', 'Long Break']
       }
-    }
+    },
+    computed: {
+      
+    },
+    methods: {
+      start() {
+        setInterval( () => {
+
+        }, 1000)
+      },
+      stop() {},
+      reset() {}
+      }
   }
 </script>
 
