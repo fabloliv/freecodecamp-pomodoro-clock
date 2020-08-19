@@ -15,18 +15,18 @@
             flat
           >
             <h1 class="time">
-              {{ display.minutes }}:{{ display.seconds }}</h1>
+              {{ displayMinutes }}:{{ displaySeconds }}</h1>
 
             <div class="button-group">
-              <v-btn color="primary">
+              <v-btn @click="start" color="primary">
                 <v-icon left small>mdi-play-circle-outline</v-icon>
                 Start
               </v-btn>
-              <v-btn color="error">
+              <v-btn @click="stop" color="error">
                 <v-icon left small>mdi-stop-circle-outline</v-icon>
                 Stop
               </v-btn>
-              <v-btn>
+              <v-btn @click="reset">
                 <v-icon left small>mdi-restart</v-icon>
                 Reset
               </v-btn>
@@ -43,26 +43,42 @@
   export default {
     data() {
       return {
-          display: {
-            minutes: '00',
-            seconds: '00',
-          },
+          timerInstance: null,
           totalSeconds: 25 * 60,
           timerType: 0,
           tabTitles: ['Pomodoro', 'Short Break', 'Long Break']
       }
     },
     computed: {
-      
+      displayMinutes() {
+        const minutes = Math.floor(this.totalSeconds / 60)
+        return this.formatTime(minutes)
+      },
+      displaySeconds() {
+        const seconds = this.totalSeconds % 60
+        return this.formatTime(seconds)
+      }
     },
     methods: {
+      formatTime(time) {
+        if(time < 10) {
+          return '0' + time
+        }
+        
+        return time.toString()
+      },
       start() {
-        setInterval( () => {
-
+        this.timerInstance = setInterval( () => {
+          this.totalSeconds -= 1
         }, 1000)
       },
-      stop() {},
-      reset() {}
+      stop() {
+        this.clearInterval(this.timerInstance)
+      },
+      reset() {
+        this.stop()
+        this.totalSeconds = 25 * 60
+      }
       }
   }
 </script>
