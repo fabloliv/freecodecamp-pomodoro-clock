@@ -1,6 +1,6 @@
 <template>
   <v-card class="mt-8">
-    <v-tabs v-model="timerType" grow>
+    <v-tabs @change="changeTimerType" v-model="timerType" grow>
       <v-tab
         v-for="tab in tabTitles"
         :key="tab"
@@ -26,7 +26,7 @@
                 <v-icon left small>mdi-stop-circle-outline</v-icon>
                 Stop
               </v-btn>
-              <v-btn @click="reset">
+              <v-btn @click="reset" :disabled="isRunning">
                 <v-icon left small>mdi-restart</v-icon>
                 Reset
               </v-btn>
@@ -43,6 +43,7 @@
   export default {
     data() {
       return {
+          isRunning: false,
           timerInstance: null,
           totalSeconds: 25 * 60,
           timerType: 0,
@@ -64,22 +65,27 @@
         if(time < 10) {
           return '0' + time
         }
-        
         return time.toString()
       },
       start() {
-        this.timerInstance = setInterval( () => {
+        this.stop()
+        this.isRunning = true // Desativa botão Reset
+        this.timerInstance = setInterval( () => { // Cria uma instância para setInterval
           this.totalSeconds -= 1
-        }, 1000)
+        }, 1000) 
       },
       stop() {
-        this.clearInterval(this.timerInstance)
+        this.isRunning = false // Ativa botão Reset
+        clearInterval(this.timerInstance) // não tem this!
       },
       reset() {
         this.stop()
         this.totalSeconds = 25 * 60
+      },
+      changeTimerType(num) { // altera o timer quando muda de aba
+        console.log(num)
       }
-      }
+    }
   }
 </script>
 
