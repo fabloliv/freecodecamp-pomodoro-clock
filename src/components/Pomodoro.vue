@@ -1,41 +1,38 @@
 <template>
   <v-card class="mt-8">
-    <v-tabs @change="changeTimerType" v-model="timerType" grow>
+    <v-tabs @change="changeCurrentTimer" v-model="currentTimer" grow>
       <v-tab
-        v-for="tab in tabTitles"
-        :key="tab"
+        v-for="timer in timers"
+        :key="timer"
       >
-        {{ tab }}
+        {{ timer.name }}
       </v-tab>
-      <v-tabs-items v-model="timerType">
-        <v-tab-item>
-          <v-card
-            color="basil"
-            class="pa-5 d-flex flex-column justify-center align-center"
-            flat
-          >
-            <h1 class="time">
-              {{ displayMinutes }}:{{ displaySeconds }}</h1>
-
-            <div class="button-group">
-              <v-btn @click="start" color="primary">
-                <v-icon left small>mdi-play-circle-outline</v-icon>
-                Start
-              </v-btn>
-              <v-btn @click="stop" color="error">
-                <v-icon left small>mdi-stop-circle-outline</v-icon>
-                Stop
-              </v-btn>
-              <v-btn @click="reset" :disabled="isRunning">
-                <v-icon left small>mdi-restart</v-icon>
-                Reset
-              </v-btn>
-            </div>
-            
-          </v-card>
-        </v-tab-item>
-      </v-tabs-items>
     </v-tabs>
+
+    <v-card
+      class="pa-5 d-flex flex-column justify-center align-center"
+      flat
+    >
+      <h1 class="time">
+        {{ displayMinutes }}:{{ displaySeconds }}</h1>
+
+      <div class="button-group">
+        <v-btn @click="start" color="primary">
+          <v-icon left small>mdi-play-circle-outline</v-icon>
+          Start
+        </v-btn>
+        <v-btn @click="stop" color="error">
+          <v-icon left small>mdi-stop-circle-outline</v-icon>
+          Stop
+        </v-btn>
+        <v-btn @click="reset" :disabled="isRunning">
+          <v-icon left small>mdi-restart</v-icon>
+          Reset
+        </v-btn>
+      </div>
+      
+    </v-card>
+
   </v-card>
 </template>
 
@@ -43,11 +40,24 @@
   export default {
     data() {
       return {
-          isRunning: false,
-          timerInstance: null,
-          totalSeconds: 25 * 60,
-          timerType: 0,
-          tabTitles: ['Pomodoro', 'Short Break', 'Long Break']
+        isRunning: false,
+        timerInstance: null,
+        totalSeconds: 25 * 60,
+        currentTimer: 0, // index do array de objetos 'timers'
+        timers: [ // cada aba se torna um objeto
+          {
+            name: 'Pomodoro',
+            minutes: 25
+          },
+          {
+            name: 'Short Break',
+            minutes: 5
+          },
+          {
+            name: 'Long Break',
+            minutes: 10
+          }
+        ]
       }
     },
     computed: {
@@ -82,8 +92,8 @@
         this.stop()
         this.totalSeconds = 25 * 60
       },
-      changeTimerType(num) { // altera o timer quando muda de aba
-        console.log(num)
+      changeCurrentTimer(num) { // altera o timer quando muda de aba
+        this.currentTimer = num
       }
     }
   }

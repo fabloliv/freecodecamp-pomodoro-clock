@@ -17,11 +17,9 @@ import Pomodoro from './components/Pomodoro';
 
 export default {
   name: 'App',
-
   components: {
     Pomodoro,
   },
-
   data: () => ({
     //
   }),
