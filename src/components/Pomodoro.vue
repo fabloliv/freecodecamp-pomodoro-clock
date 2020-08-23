@@ -30,14 +30,21 @@
           Reset
         </v-btn>
       </div>
-      
     </v-card>
 
+    <SettingsDialog :dialog="dialog" />
+   
   </v-card>
 </template>
 
 <script>
+
+  import SettingsDialog from './SettingsDialog.vue'
+
   export default {
+    components: {
+      SettingsDialog,
+    },
     data() {
       return {
         isRunning: false,
@@ -57,7 +64,8 @@
             name: 'Long Break',
             minutes: 10
           }
-        ]
+        ],
+        dialog: false,
       }
     },
     computed: {

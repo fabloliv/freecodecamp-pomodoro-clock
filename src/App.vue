@@ -6,6 +6,16 @@
           <v-col sm="6" offset-sm="3" >
             <Pomodoro/>
           </v-col>
+          <v-btn
+            color="secondary"
+            dark
+            small
+            top
+            right
+            fab
+          >
+            <v-icon>mdi-cog-outline</v-icon>
+          </v-btn>
         </v-row>
       </v-container>
     </v-main>
