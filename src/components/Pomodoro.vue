@@ -25,7 +25,7 @@
           <v-icon left small>mdi-stop-circle-outline</v-icon>
           Stop
         </v-btn>
-        <v-btn @click="reset" :disabled="isRunning">
+        <v-btn @click="reset(timers[currentTimer].minutes)" :disabled="isRunning">
           <v-icon left small>mdi-restart</v-icon>
           Reset
         </v-btn>
@@ -88,12 +88,13 @@
         this.isRunning = false // Ativa botão Reset
         clearInterval(this.timerInstance) // não tem this!
       },
-      reset() {
+      reset(minutes) {
         this.stop()
-        this.totalSeconds = 25 * 60
+        this.totalSeconds = minutes * 60
       },
       changeCurrentTimer(num) { // altera o timer quando muda de aba
         this.currentTimer = num
+        this.reset(this.timers[num].minutes)
       }
     }
   }
