@@ -45,6 +45,12 @@
     components: {
       SettingsDialog,
     },
+    props: {
+      dialog: {
+        type: Boolean,
+        required: true
+      }
+    },
     data() {
       return {
         isRunning: false,
@@ -64,8 +70,7 @@
             name: 'Long Break',
             minutes: 10
           }
-        ],
-        dialog: false,
+        ]
       }
     },
     computed: {

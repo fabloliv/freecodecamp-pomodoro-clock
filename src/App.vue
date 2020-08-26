@@ -4,16 +4,17 @@
       <v-container>
         <v-row>
           <v-col sm="6" offset-sm="3" >
-            <Pomodoro/>
+            <Pomodoro :dialog="dialog" />
           </v-col>
           <v-btn
+            @click="dialog = true"
             color="secondary"
             dark
             small
             top
             right
             fab
-          >
+            >
             <v-icon>mdi-cog-outline</v-icon>
           </v-btn>
         </v-row>
@@ -27,11 +28,16 @@ import Pomodoro from './components/Pomodoro';
 
 export default {
   name: 'App',
+  
   components: {
     Pomodoro,
   },
-  data: () => ({
-    //
-  }),
+  
+  data() {
+    return {
+      dialog: false
+    }
+  },
+
 };
 </script>
