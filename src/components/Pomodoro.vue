@@ -35,6 +35,7 @@
     <SettingsDialog 
       :dialog = "dialog"
       :closeDialog = "closeDialog"
+      :timers = "timers"
       :save = "save"
       />
    
@@ -117,7 +118,11 @@
         this.currentTimer = num
         this.reset(this.timers[num].minutes)
       },
-      save() {
+      save(updatedTimers) {
+        this.timers = this.timers.map( (timer, i) => {
+          // sobrescreve os valores da propriedade Minutos recebidos do parâmetro
+          return { ...timer, minutes: parseInt(updatedTimers[i]) } 
+        })
         this.closeDialog()
       }
     }
