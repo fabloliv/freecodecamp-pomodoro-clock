@@ -4,7 +4,10 @@
       <v-container>
         <v-row>
           <v-col sm="6" offset-sm="3" >
-            <Pomodoro :dialog="dialog" />
+            <Pomodoro
+              :dialog = "dialog"
+              :closeDialog = "closeDialog"
+            />
           </v-col>
           <v-btn
             @click="dialog = true"
@@ -38,6 +41,12 @@ export default {
       dialog: false
     }
   },
+
+  methods: {
+    closeDialog() {
+      this.dialog = false
+    }
+  }
 
 };
 </script>

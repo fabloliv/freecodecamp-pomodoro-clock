@@ -32,7 +32,11 @@
       </div>
     </v-card>
 
-    <SettingsDialog :dialog="dialog" />
+    <SettingsDialog 
+      :dialog = "dialog"
+      :closeDialog = "closeDialog"
+      :save = "save"
+      />
    
   </v-card>
 </template>
@@ -48,6 +52,10 @@
     props: {
       dialog: {
         type: Boolean,
+        required: true
+      },
+      closeDialog: {
+        type: Function,
         required: true
       }
     },
@@ -108,6 +116,9 @@
       changeCurrentTimer(num) { // altera o timer quando muda de aba
         this.currentTimer = num
         this.reset(this.timers[num].minutes)
+      },
+      save() {
+        this.closeDialog()
       }
     }
   }
